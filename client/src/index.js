@@ -1,17 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux'
+import store from './redux/store/index'
 import { ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { green, purple } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#3b6277',
     } ,
-    secondary: green,
+    secondary:{
+      main: '#b00e5b',
+    },
   },
   status: {
     danger: 'orange',
@@ -20,9 +23,11 @@ const theme = createMuiTheme({
 
 
 ReactDOM.render(
+    <Provider store={store}>
     <ThemeProvider theme={theme}>
     <App />
-    </ThemeProvider>,
+    </ThemeProvider>
+    </Provider>,
   document.getElementById('root')
 );
 

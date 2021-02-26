@@ -1,4 +1,5 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -24,6 +25,11 @@ const useStyles = makeStyles((theme)=>({
 
 export default function Home(){
     const classes = useStyles()
+    const history = useHistory()
+
+    const goTo = ()=>{
+        history.push("/register")
+    }
     return(
         <div className={classes.root}>
             <Grid container>
@@ -39,7 +45,7 @@ export default function Home(){
                     <Grid item sm={6} md={7}>
                         <Button color="inherit" variant="outlined" className={classes.menuButton}>Material Educativo</Button>
                         <Button color="inherit" variant="outlined" className={classes.menuButton}>Ingresar</Button>
-                        <Button color="inherit" variant="outlined" className={classes.menuButton}>Registrarse</Button>
+                        <Button  onClick = {goTo} color="inherit" variant="outlined" className={classes.menuButton}>Registrarse</Button>
                     </Grid>
                 </Hidden>
                 <Hidden mdUp>
