@@ -79,7 +79,7 @@ export default function Register(){
                 </FormControl>
                 <FormControl className={classes.input} onChange={handleChange}>
                     <TextField
-                        name="email"
+                        name="password"
                         type="password"
                         variant="outlined"
                         label="Contraseña"

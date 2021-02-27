@@ -1,11 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { IconButton, Button, Grid, makeStyles, Hidden} from '@material-ui/core'
+import { IconButton, Button, Grid, makeStyles, Hidden, Drawer, ListItem, ListItemText, ListItemIcon} from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import Logo from '../utils/Logo'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme)=>({
     root:{
@@ -21,14 +22,28 @@ const useStyles = makeStyles((theme)=>({
         textAlign: "center",
         marginLeft: "120px",
     },
+    listItem:{
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        color: 'white',
+    },
 }))
+
+const links = ['Gato', 'Perro', 'Ciervo']
 
 export default function Home(){
     const classes = useStyles()
     const history = useHistory()
+    const [open, setOpen] = useState(false)
 
-    const goTo = ()=>{
-        history.push("/register")
+    const goTo = (e)=>{
+        let destination = e.target.offsetParent.id
+        history.push("/"+destination)
+    }
+    const handleOpen = ()=>{
+        setOpen(true)
+    }
+    const handleClose = ()=>{
+        setOpen(false)
     }
     return(
         <div className={classes.root}>
@@ -43,14 +58,15 @@ export default function Home(){
                 </Grid>
                 <Hidden smDown>
                     <Grid item sm={6} md={7}>
-                        <Button color="inherit" variant="outlined" className={classes.menuButton}>Material Educativo</Button>
-                        <Button color="inherit" variant="outlined" className={classes.menuButton}>Ingresar</Button>
-                        <Button  onClick = {goTo} color="inherit" variant="outlined" className={classes.menuButton}>Registrarse</Button>
+                        <Button id="contents" onClick = {goTo} color="inherit" variant="outlined" className={classes.menuButton}>Material Educativo</Button>
+                        <Button id="login" onClick = {goTo} color="inherit" variant="outlined" className={classes.menuButton}>Ingresar</Button>
+                        <Button  id="register" onClick = {goTo} color="inherit" variant="outlined" className={classes.menuButton}>Registrarse</Button>
+                        <Button id="admin" onClick = {goTo} color="inherit" variant="outlined" className={classes.menuButton}>Admin</Button>
                     </Grid>
                 </Hidden>
                 <Hidden mdUp>
                     <Grid item sm={2}>
-                        <IconButton edge="start" color="inherit" aria-label="menu" className={classes.menuButton}>
+                        <IconButton  onClick={handleOpen} edge="start" color="inherit" aria-label="menu" className={classes.menuButton}>
                             <MenuIcon/>
                         </IconButton>
                     </Grid>
@@ -58,6 +74,22 @@ export default function Home(){
               </Toolbar>
             </AppBar>
             </Grid>
+            <Drawer anchor="right" open={open} >
+                <ListItem className={classes.listItem}>
+                    <ListItemText  primary="Material Educativo"/>
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary="Ingresar"/>
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary="Registrarse"/>
+                </ListItem>
+                <ListItem onClick={handleClose}>
+                    <ListItemIcon>
+                        <ArrowBackIcon/>
+                    </ListItemIcon>
+                </ListItem>
+            </Drawer>
         </div>
     )
 }

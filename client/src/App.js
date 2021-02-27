@@ -4,6 +4,7 @@ import Home from './components/home/Home'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 import Register from './components/register/Register'
+import AdminPanel from './components/adminPanel/AdminPanel'
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Route path="/" component={Home}/>
       <Switch>
         <Route exact path="/register" component={Register} />
+        <Route exact path="/admin" component={AdminPanel} />
       </Switch>
       
     </Router>
