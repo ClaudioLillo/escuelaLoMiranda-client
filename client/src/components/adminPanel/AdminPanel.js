@@ -2,6 +2,7 @@ import { Grid, makeStyles, Typography } from '@material-ui/core'
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {getUsers} from '../../redux/actions/user'
+import {getGrades} from '../../redux/actions/grade'
 
 import UsersTable from './UsersTable'
 import Courses from './Courses'
@@ -26,6 +27,7 @@ export default function AdminPanel(){
 
     useEffect(()=>{
         dispatch(getUsers())
+        dispatch(getGrades())
     },[dispatch])
     if(users){
         console.log(users)

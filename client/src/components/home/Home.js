@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { IconButton, Button, Grid, makeStyles, Hidden, Drawer, ListItem, ListItemText, ListItemIcon} from '@material-ui/core'
+import { IconButton, Button, Grid, makeStyles, Hidden, Drawer, ListItem, ListItemText, ListItemIcon, List, Divider} from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import Logo from '../utils/Logo'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -25,6 +25,13 @@ const useStyles = makeStyles((theme)=>({
     listItem:{
         backgroundColor: 'rgba(0,0,0,0.7)',
         color: 'white',
+        '&:hover':{
+            backgroundColor: 'black',
+            cursor: 'pointer',
+        },
+    },
+    icon:{
+        color: 'white',
     },
 }))
 
@@ -38,6 +45,7 @@ export default function Home(){
     const goTo = (e)=>{
         let destination = e.target.offsetParent.id
         history.push("/"+destination)
+        setOpen(false)
     }
     const handleOpen = ()=>{
         setOpen(true)
@@ -75,20 +83,26 @@ export default function Home(){
             </AppBar>
             </Grid>
             <Drawer anchor="right" open={open} >
-                <ListItem className={classes.listItem}>
+                <List>
+                <ListItem id="contents" onClick = {goTo} className={classes.listItem}>
                     <ListItemText  primary="Material Educativo"/>
                 </ListItem>
-                <ListItem>
+                <ListItem id="login" onClick = {goTo} className={classes.listItem}>
                     <ListItemText primary="Ingresar"/>
                 </ListItem>
-                <ListItem>
+                <ListItem id="register" onClick = {goTo} className={classes.listItem}>
                     <ListItemText primary="Registrarse"/>
                 </ListItem>
-                <ListItem onClick={handleClose}>
+                <ListItem id="admin" onClick = {goTo} className={classes.listItem}>
+                    <ListItemText primary="Admin"/>
+                </ListItem>
+                <Divider/>
+                <ListItem className={classes.listItem} onClick={handleClose}>
                     <ListItemIcon>
-                        <ArrowBackIcon/>
+                        <ArrowBackIcon className={classes.icon}/>
                     </ListItemIcon>
                 </ListItem>
+                </List>
             </Drawer>
         </div>
     )

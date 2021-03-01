@@ -37,13 +37,14 @@ export default function Register(){
     const classes = useStyles()
     const history= useHistory()
     const dispatch = useDispatch()
-    const [inputs, setInputs] = useState({})
+    const [inputs, setInputs] = useState({role: 'student'})
 
     const handleChange = (e)=>{
         setInputs({...inputs, [e.target.name]:e.target.value})
     }
     
     const submit = ()=>{
+        
         dispatch(registerUser(inputs))
     }
     const exit = ()=>{
