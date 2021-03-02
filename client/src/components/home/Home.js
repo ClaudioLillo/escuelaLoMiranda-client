@@ -66,10 +66,10 @@ export default function Home(){
                 </Grid>
                 <Hidden smDown>
                     <Grid item sm={6} md={7}>
-                        <Button id="contents" onClick = {goTo} color="inherit" variant="outlined" className={classes.menuButton}>Material Educativo</Button>
-                        <Button id="login" onClick = {goTo} color="inherit" variant="outlined" className={classes.menuButton}>Ingresar</Button>
-                        <Button  id="register" onClick = {goTo} color="inherit" variant="outlined" className={classes.menuButton}>Registrarse</Button>
-                        <Button id="admin" onClick = {goTo} color="inherit" variant="outlined" className={classes.menuButton}>Admin</Button>
+                        <Button id="contents" onClick = {goTo} color="inherit" className={classes.menuButton}>Material Educativo </Button>
+                        <Button id="login" onClick = {goTo} color="inherit"  className={classes.menuButton}>Ingresar </Button>
+                        <Button  id="register" onClick = {goTo} color="inherit" className={classes.menuButton}>Registrarse </Button>
+                        <Button id="admin" onClick = {goTo} color="inherit"  className={classes.menuButton}>Admin </Button>
                     </Grid>
                 </Hidden>
                 <Hidden mdUp>

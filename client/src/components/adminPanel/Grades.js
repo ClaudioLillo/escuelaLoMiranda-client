@@ -3,7 +3,6 @@ import { Button, Dialog, DialogActions, DialogContent, MenuItem, DialogTitle, Fo
 import {useDispatch, useSelector} from 'react-redux'
 import {createGrade} from '../../redux/actions/grade'
 
-
 const useStyles=makeStyles((theme)=>({
     table: {
         backgroundColor: 'rgba(0,20,200,0.2)',
@@ -38,9 +37,8 @@ const useStyles=makeStyles((theme)=>({
 const availableGrades = ["1","2","3","4","5","6","7","8","Kinder","Pre-Kinder"]
 const letters =["A","B","C","D","E","Ninguna"]
 
-export default function Courses(){
+export default function Grades(){
     const grades = useSelector(state=>state.grade.data)
-    const subjects = useSelector(state=>state.subject.data)
     const classes = useStyles()
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
@@ -63,15 +61,14 @@ export default function Courses(){
         dispatch(createGrade(inputs))
         
     }
-    if(grades){
-        console.log(grades)
+    if(inputs){
+        console.log(inputs)
     }
-
     return(
         <div>
             <Grid container>
                 <Grid item xs={6} sm={6}>
-                    <Typography className={classes.title}>Clases</Typography>
+                    <Typography className={classes.title}>Cursos</Typography>
                 </Grid>
                 <Grid item xs={6} sm={6}>
                     <Button onClick={handleOpen} variant="outlined" className={classes.button}>+</Button>
@@ -81,8 +78,8 @@ export default function Courses(){
                 <TableHead>
                     <TableRow>
                     <TableCell align='center' className={classes.titleCell}>Curso</TableCell>
-                    <TableCell align='center' className={classes.titleCell}>Profesor</TableCell>
-                    <TableCell align='center' className={classes.titleCell}>Asignatura</TableCell>
+                    <TableCell align='center' className={classes.titleCell}>Profesor Jefe</TableCell>
+                    <TableCell align='center' className={classes.titleCell}>Alumnos</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -97,28 +94,28 @@ export default function Courses(){
             </Grid>
             
             <Dialog open={open}>
-                <DialogTitle>Agregar Clase</DialogTitle>
+                <DialogTitle>Agregar Curso</DialogTitle>
                 <DialogContent className={classes.dialogContent}>
                     <FormControl>
-                        <InputLabel htmlFor="grade">Curso</InputLabel>
+                        <InputLabel htmlFor="level">Nivel</InputLabel>
                         <Select className={classes.select}
-                                label="Curso"
-                                name="gradeId"
+                                label="Nivel"
+                                name="level"
                                 value={inputs && inputs.level}
                                 onChange={handleChange}>
-                                {grades && grades.map((grade, index)=>
-                                    <MenuItem key={index} value={grade.id}>{grade.level+"° "+grade.letter}</MenuItem>)}
+                                {availableGrades && availableGrades.map((grade, index)=>
+                                    <MenuItem key={index} value={grade}>{grade}</MenuItem>)}
                             </Select>
                     </FormControl>
                     <FormControl>
-                        <InputLabel htmlFor="subjectId">Asignatura</InputLabel>
+                        <InputLabel htmlFor="letter">Letra</InputLabel>
                         <Select className={classes.select}
-                                label="Asignatura"
-                                name="subjectId"
-                                value={inputs.subjectId}
+                                label="Letra"
+                                name="letter"
+                                value={inputs.letter}
                                 onChange={handleChange}>
-                                {subjects && subjects.map((subject, index)=>
-                                    <MenuItem key={index} value={subject.id}>{subject.name}</MenuItem>)}
+                                {letters && letters.map((letter, index)=>
+                                    <MenuItem key={index} value={letter}>{letter}</MenuItem>)}
                             </Select>
                     </FormControl>
                     <FormControl>

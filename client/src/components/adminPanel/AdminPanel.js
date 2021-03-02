@@ -3,8 +3,11 @@ import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {getUsers} from '../../redux/actions/user'
 import {getGrades} from '../../redux/actions/grade'
+import {getSubjects} from '../../redux/actions/subject'
 
 import UsersTable from './UsersTable'
+import Grades from './Grades'
+import Subjects from './Subjects'
 import Courses from './Courses'
 
 const useStyles = makeStyles((theme)=>({
@@ -28,10 +31,10 @@ export default function AdminPanel(){
     useEffect(()=>{
         dispatch(getUsers())
         dispatch(getGrades())
+        dispatch(getSubjects())
     },[dispatch])
-    if(users){
-        console.log(users)
-    }
+    
+    
     return(
         <div className={classes.root}>
             <Typography variant = "h5" className={classes.title}>Panel de Administrador</Typography>
@@ -40,7 +43,13 @@ export default function AdminPanel(){
                     <UsersTable users={users}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                <Courses/>
+                    <Grades/>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Subjects/>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Courses/>
                 </Grid>
             </Grid>
             
