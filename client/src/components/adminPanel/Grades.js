@@ -54,16 +54,13 @@ export default function Grades(){
         setOpen(false)
     }
     const handleChange = (e)=>{
-        console.log(e.target.name)
         setInputs({...inputs, [e.target.name]:e.target.value})
     }
     const handleSubmit = ()=>{
         dispatch(createGrade(inputs))
         
     }
-    if(inputs){
-        console.log(inputs)
-    }
+   
     return(
         <div>
             <Grid container>

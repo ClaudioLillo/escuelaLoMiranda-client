@@ -31,11 +31,6 @@ const dataCourses = [
     {level: "6", teacher: "prof. 2", id: 6}
 ]
 
-const users = [
-    {name: "Claudio", lastName: "Lillo", id: "1" , role: "admin", courseId: "4"},
-    {name: "Firulais", lastName: "Lillo", id: "2" , role: "student", courseId: "4"},
-    {name: "Grett", lastName: "Lillo", id: "3" , role: "student", courseId: "3"},
-]
 
 export default function Contents(){
     const classes = useStyles()
@@ -51,9 +46,7 @@ export default function Contents(){
         }
         
     }
-    if(show){
-        console.log(show)
-    }
+    
     return(
         <div className = {classes.root}>
             <Paper>

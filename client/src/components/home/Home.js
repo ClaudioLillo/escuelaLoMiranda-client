@@ -1,5 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
+import {useSelector, useDispatch} from 'react-redux'
+
+import {seed} from '../../redux/actions/user'
+
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -35,12 +39,20 @@ const useStyles = makeStyles((theme)=>({
     },
 }))
 
-const links = ['Gato', 'Perro', 'Ciervo']
 
 export default function Home(){
     const classes = useStyles()
     const history = useHistory()
+    const dispatch=useDispatch()
     const [open, setOpen] = useState(false)
+    const users = useSelector(state=>state.user.data)
+    const currentUser = localStorage.getItem('id')
+
+    useEffect(()=>{
+        if(users===[]){
+            dispatch(seed()) 
+        }
+    })
 
     const goTo = (e)=>{
         let destination = e.target.offsetParent.id
@@ -52,6 +64,11 @@ export default function Home(){
     }
     const handleClose = ()=>{
         setOpen(false)
+    }
+    const logout = ()=>{
+        localStorage.removeItem('id')
+        localStorage.removeItem('token')
+        window.location.reload()
     }
     return(
         <div className={classes.root}>
@@ -67,9 +84,15 @@ export default function Home(){
                 <Hidden smDown>
                     <Grid item sm={6} md={7}>
                         <Button id="contents" onClick = {goTo} color="inherit" className={classes.menuButton}>Material Educativo </Button>
+                        <Button id="panel" onClick = {goTo} color="inherit"  className={classes.menuButton}>Mi portal </Button>
+                        {currentUser?
+                        <Button onClick={logout}>Salir</Button>
+                        :
+                        <>
                         <Button id="login" onClick = {goTo} color="inherit"  className={classes.menuButton}>Ingresar </Button>
                         <Button  id="register" onClick = {goTo} color="inherit" className={classes.menuButton}>Registrarse </Button>
-                        <Button id="admin" onClick = {goTo} color="inherit"  className={classes.menuButton}>Admin </Button>
+                        
+                        </>}
                     </Grid>
                 </Hidden>
                 <Hidden mdUp>
@@ -87,15 +110,24 @@ export default function Home(){
                 <ListItem id="contents" onClick = {goTo} className={classes.listItem}>
                     <ListItemText  primary="Material Educativo"/>
                 </ListItem>
+                <ListItem id="admin" onClick = {goTo} className={classes.listItem}>
+                    <ListItemText primary="Mi Portal"/>
+                </ListItem>
+                {currentUser?
+                <ListItem onClick = {logout} className={classes.listItem}>
+                    <ListItemText primary="Cerrar sesión"/>
+                </ListItem>
+                :
+                <>
                 <ListItem id="login" onClick = {goTo} className={classes.listItem}>
                     <ListItemText primary="Ingresar"/>
                 </ListItem>
                 <ListItem id="register" onClick = {goTo} className={classes.listItem}>
                     <ListItemText primary="Registrarse"/>
                 </ListItem>
-                <ListItem id="admin" onClick = {goTo} className={classes.listItem}>
-                    <ListItemText primary="Admin"/>
-                </ListItem>
+                </>
+                }
+                
                 <Divider/>
                 <ListItem className={classes.listItem} onClick={handleClose}>
                     <ListItemIcon>

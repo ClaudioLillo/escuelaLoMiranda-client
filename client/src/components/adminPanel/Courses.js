@@ -1,13 +1,12 @@
 import React, {useState} from 'react'
 import { Button, Dialog, DialogActions, DialogContent, MenuItem, DialogTitle, FormControl, Grid, InputLabel, makeStyles, Select, Table, TableBody, TableCell, TableHead, TableRow, Typography, TextField} from '@material-ui/core'
 import {useDispatch, useSelector} from 'react-redux'
-import {createGrade} from '../../redux/actions/grade'
+import {createCourse} from '../../redux/actions/course'
 
 
 const useStyles=makeStyles((theme)=>({
     table: {
         backgroundColor: 'rgba(0,20,200,0.2)',
-        width: '80%',
         marginTop: '10px',
     },
     titleCell: {
@@ -35,19 +34,19 @@ const useStyles=makeStyles((theme)=>({
     },
 }))
 
-const availableGrades = ["1","2","3","4","5","6","7","8","Kinder","Pre-Kinder"]
-const letters =["A","B","C","D","E","Ninguna"]
+
 
 export default function Courses(){
     const grades = useSelector(state=>state.grade.data)
     const subjects = useSelector(state=>state.subject.data)
+    const courses = useSelector(state=>state.course.data)
     const classes = useStyles()
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [inputs, setInputs] = useState({
-        level: "1",
-        letter: "A",
-        teacher: ""
+        gradeId: "",
+        teacher: "",
+        subjectId: ""
     })
     const handleOpen =()=>{
         setOpen(true)
@@ -56,15 +55,33 @@ export default function Courses(){
         setOpen(false)
     }
     const handleChange = (e)=>{
-        console.log(e.target.name)
         setInputs({...inputs, [e.target.name]:e.target.value})
     }
     const handleSubmit = ()=>{
-        dispatch(createGrade(inputs))
+        dispatch(createCourse(inputs))
         
     }
-    if(grades){
-        console.log(grades)
+    const findGrade=(id)=>{
+        if(!grades){
+            return 0
+        }
+        for(let i of grades){
+            if (i.id===id){
+                return i.level+"° "+i.letter
+            }
+        }        
+        return(id)
+    }
+    const findSubject=(id)=>{
+        if(!subjects){
+            return 0
+        }
+        for(let i of subjects){
+            if (i.id===id){
+                return i.name
+            }
+        }        
+        return(id)
     }
 
     return(
@@ -77,7 +94,7 @@ export default function Courses(){
                     <Button onClick={handleOpen} variant="outlined" className={classes.button}>+</Button>
                 </Grid>
             <Grid item xs={12}>
-            <Table className={classes.table} size="small">
+            <Table className={classes.table} size="medium">
                 <TableHead>
                     <TableRow>
                     <TableCell align='center' className={classes.titleCell}>Curso</TableCell>
@@ -86,11 +103,11 @@ export default function Courses(){
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {grades && grades.map((grade, index)=>
+                    {courses && courses.map((course, index)=>
                     <TableRow key={index} hover className={classes.tablerow}>
-                        <TableCell align='center'>{grade.level + "° " + grade.letter}</TableCell>
-                        <TableCell align='center'>{grade.teacher}</TableCell>
-                        <TableCell align='center'>{"-"}</TableCell>
+                        <TableCell align='center'>{findGrade(course.gradeId)}</TableCell>
+                        <TableCell align='center'>{course.teacher}</TableCell>
+                        <TableCell align='center'>{findSubject(course.subjectId)}</TableCell>
                     </TableRow>)}
                 </TableBody>
             </Table>
@@ -104,7 +121,7 @@ export default function Courses(){
                         <Select className={classes.select}
                                 label="Curso"
                                 name="gradeId"
-                                value={inputs && inputs.level}
+                                value={inputs && inputs.gradeId}
                                 onChange={handleChange}>
                                 {grades && grades.map((grade, index)=>
                                     <MenuItem key={index} value={grade.id}>{grade.level+"° "+grade.letter}</MenuItem>)}
@@ -126,6 +143,7 @@ export default function Courses(){
                             label="Profesor Jefe"
                             onChange={handleChange}
                             name="teacher"
+                            value={inputs.teacher}
                             />
                     </FormControl>
                 </DialogContent>

@@ -5,14 +5,13 @@ import {getUsers} from '../../redux/actions/user'
 import {getGrades} from '../../redux/actions/grade'
 import {getSubjects} from '../../redux/actions/subject'
 
-import UsersTable from './UsersTable'
-import Grades from './Grades'
-import Subjects from './Subjects'
 import Courses from './Courses'
+
+
 
 const useStyles = makeStyles((theme)=>({
     root: {
-        border: "1px solid rgba(0,0,0,0)",
+        border: "1px solid rgb(0,0,0)",
         margin: "20px",
         marginTop: "100px",
         borderRadius: "5px",
@@ -37,17 +36,8 @@ export default function AdminPanel(){
     
     return(
         <div className={classes.root}>
-            <Typography variant = "h5" className={classes.title}>Panel de Administrador</Typography>
+            <Typography variant = "h5" className={classes.title}>Panel de Estudiante</Typography>
             <Grid container>
-                <Grid item xs={12} sm={12}>
-                    <UsersTable users={users}/>
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                    <Grades/>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <Subjects/>
-                </Grid>
                 <Grid item xs={12} sm={6}>
                     <Courses/>
                 </Grid>
