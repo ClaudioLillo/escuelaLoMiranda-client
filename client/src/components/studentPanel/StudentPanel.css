@@ -1,0 +1,25 @@
+.root{
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius:3px;
+    padding: 16px;
+    margin:16px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+.title{
+    text-transform: capitalize;
+    text-align:center;
+    font-weight: 400;
+    font-size: 24px;
+}
+.data{
+    text-align:center;
+    font-weight:200;
+    margin-top:0px;
+}
+.table-cell{
+    background: rgba(0,0,0,0.1);
+    text-align:center;
+    padding:3px;
+}

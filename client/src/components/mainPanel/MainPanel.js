@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {getCurrentUser} from '../../redux/actions/user'
 import AdminPanel from '../adminPanel/AdminPanel'
 import StudentPanel from '../studentPanel/StudentPanel'
+import TeacherPanel from '../teacherPanel/TeacherPanel'
 
 export default function MainPanel(){
     const dispatch = useDispatch()
@@ -21,6 +22,8 @@ export default function MainPanel(){
                 <AdminPanel/>}
                 {(currentUser.user.role==='student') &&
                 <StudentPanel/>}
+                {(currentUser.user.role==='teacher') &&
+                <TeacherPanel/>}
                 </>}
        </div>
     )
