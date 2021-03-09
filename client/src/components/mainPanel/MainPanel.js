@@ -1,3 +1,4 @@
+import { Grid } from '@material-ui/core'
 import React, {useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {getCurrentUser} from '../../redux/actions/user'
@@ -17,14 +18,14 @@ export default function MainPanel(){
     return(
        <div>
             {currentUser &&
-                <>
+                <Grid container>
                 {(currentUser.user.role==='admin') &&
-                <AdminPanel/>}
+                <Grid item xs={12}><AdminPanel/></Grid>}
                 {(currentUser.user.role==='student') &&
                 <StudentPanel/>}
                 {(currentUser.user.role==='teacher') &&
-                <TeacherPanel/>}
-                </>}
+                <Grid item xs={12}><TeacherPanel/></Grid>}
+                </Grid>}
        </div>
     )
 }

@@ -34,7 +34,15 @@ export default function AdminPanel(){
         dispatch(getSubjects())
     },[dispatch])
     
-    
+    const onlyTeachers = () =>{
+        let arr = []
+        for( let i of users){
+            if(i.role==="teacher"){
+                arr.push(i)
+            }
+        }
+        return(arr)
+    }
     return(
         <div className={classes.root}>
             <Typography variant = "h5" className={classes.title}>Panel de Administrador</Typography>
@@ -49,7 +57,7 @@ export default function AdminPanel(){
                     <Subjects/>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Courses/>
+                    {users && <Courses teachers={onlyTeachers()}/>}
                 </Grid>
             </Grid>
             

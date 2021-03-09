@@ -1,6 +1,6 @@
 import { Grid, makeStyles, Typography } from '@material-ui/core'
 import React, {useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch/*, useSelector*/} from 'react-redux'
 import {getUsers} from '../../redux/actions/user'
 import {getGrades} from '../../redux/actions/grade'
 import {getSubjects} from '../../redux/actions/subject'
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme)=>({
 export default function AdminPanel(){
     const classes = useStyles()
     const dispatch = useDispatch()
-    const users = useSelector(state=>state.user.data)
+    //const users = useSelector(state=>state.user.data)
 
     useEffect(()=>{
         dispatch(getUsers())

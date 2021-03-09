@@ -25,7 +25,6 @@ export default function UserDetails({user}){
         setOpen(false)
     }
     const handleChange = (e) =>{
-        console.log(e.target.name)
         setInputs({...inputs, [e.target.name]: e.target.value})
         if(inputs.role === user.role && inputs.gradeId === user.gradeId){
             setActive(true)
@@ -36,6 +35,7 @@ export default function UserDetails({user}){
     }
     const handleSubmit = (e)=>{
         dispatch(updateUser(inputs))
+        handleClose()
     }
     return(
         <div>

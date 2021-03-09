@@ -36,7 +36,7 @@ const useStyles=makeStyles((theme)=>({
 
 
 
-export default function Courses(){
+export default function Courses({teachers}){
     const grades = useSelector(state=>state.grade.data)
     const subjects = useSelector(state=>state.subject.data)
     const courses = useSelector(state=>state.course.data)
@@ -45,7 +45,7 @@ export default function Courses(){
     const [open, setOpen] = useState(false)
     const [inputs, setInputs] = useState({
         gradeId: "",
-        teacher: "",
+        userId: "",
         subjectId: ""
     })
     const handleOpen =()=>{
@@ -59,6 +59,7 @@ export default function Courses(){
     }
     const handleSubmit = ()=>{
         dispatch(createCourse(inputs))
+        setOpen(false)
         
     }
     const findGrade=(id)=>{
@@ -136,6 +137,17 @@ export default function Courses(){
                                 onChange={handleChange}>
                                 {subjects && subjects.map((subject, index)=>
                                     <MenuItem key={index} value={subject.id}>{subject.name}</MenuItem>)}
+                            </Select>
+                    </FormControl>
+                    <FormControl>
+                        <InputLabel htmlFor="userId">Profesor</InputLabel>
+                        <Select className={classes.select}
+                                label="Profesor"
+                                name="userId"
+                                value={inputs.userId}
+                                onChange={handleChange}>
+                                {teachers && teachers.map((teacher, index)=>
+                                    <MenuItem key={index} value={teacher.id}>{teacher.name + " " + teacher.lastName}</MenuItem>)}
                             </Select>
                     </FormControl>
                     <FormControl>

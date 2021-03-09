@@ -1,12 +1,23 @@
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export const createCourse = (data)=>{
     return async function(){
+        console.log("data to create course: ",data)
         await axios({
             method: 'post',
             url: 'https://apilomiranda.herokuapp.com/api/courses',
             data: data,
-        }).then(res=>console.log(res))
+        }).then(async(res)=>{
+            console.log(res)
+            await Swal.fire({
+                title: "Clase agregada",
+                timer: 3000})
+            return res
+        })
+        .then(res=>{
+            window.location.reload()
+        })
     }
 }
 

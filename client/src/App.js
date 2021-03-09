@@ -12,6 +12,8 @@ import MainPanel from './components/mainPanel/MainPanel'
 
 import {getUsers, seed} from './redux/actions/user'
 import {getCourses} from './redux/actions/course'
+import {getSubjects} from './redux/actions/subject'
+import {getGrades} from './redux/actions/grade'
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
     dispatch(seed())
     dispatch(getUsers())
     dispatch(getCourses())
+    dispatch(getSubjects())
+    dispatch(getGrades())
   },[dispatch])
 
   return (

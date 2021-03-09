@@ -57,8 +57,13 @@ export default function Grades(){
         setInputs({...inputs, [e.target.name]:e.target.value})
     }
     const handleSubmit = ()=>{
-        dispatch(createGrade(inputs))
-        
+        dispatch(createGrade(inputs)) 
+    }
+    const formatLetter = (letter) =>{
+        if(letter==="Ninguna"){
+            return ""
+        }
+        return letter
     }
    
     return(
@@ -82,7 +87,7 @@ export default function Grades(){
                 <TableBody>
                     {grades && grades.map((grade, index)=>
                     <TableRow key={index} hover className={classes.tablerow}>
-                        <TableCell align='center'>{grade.level + "° " + grade.letter}</TableCell>
+                        <TableCell align='center'>{grade.level + "° " + formatLetter(grade.letter)}</TableCell>
                         <TableCell align='center'>{grade.teacher}</TableCell>
                         <TableCell align='center'>{"-"}</TableCell>
                     </TableRow>)}

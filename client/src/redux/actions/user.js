@@ -91,6 +91,10 @@ export const loginUser = (data)=>{
 
 export const updateUser = (data)=>{
     return async function(dispatch){
+        if(data.gradeId===""){
+            data.gradeId=null
+        }
+        console.log(data)
         await axios({
             method: 'put',
             url: 'https://apilomiranda.herokuapp.com/api/users',
